@@ -39,6 +39,11 @@ public class Field : MonoBehaviour
 		texture.SetPixels(pixels);
 		texture.Apply(false);
 	}
+
+	public Vector2 dimensions
+	{
+		get { return new Vector2(width, height); }
+	}
 	
 	public void PaintDot(Color color, Vector2 position, float size)
 	{

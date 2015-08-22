@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 645949719}
   size: 25
+  speed: 100
 --- !u!4 &1304131221
 Transform:
   m_ObjectHideFlags: 0
