@@ -4,6 +4,8 @@ using System.Collections;
 public class Monster : MonoBehaviour
 {
 	public Field field;
+	public Color color = Color.green;
+	public float lifeTime = 2f;
 	public float size = 10f;
 	public float speed = 10f;
 
@@ -22,7 +24,7 @@ public class Monster : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
 		Vector2 velocity = Vector2.one * speed;
 
@@ -31,6 +33,6 @@ public class Monster : MonoBehaviour
 
 		position += velocity * Time.deltaTime;
 
-		field.PaintDot(Color.green, position, size);
+		field.PaintDot(color, position, size, lifeTime);
 	}
 }

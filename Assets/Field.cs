@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Field : MonoBehaviour
 {
+	public Color neutralColor = Color.white;
 	public int height = 480;
 
 	Texture2D texture;
 	private Color[] pixels;
+	private float[] lifeTimes;
 	private int width;
 
 	// Use this for initialization
@@ -25,9 +27,11 @@ public class Field : MonoBehaviour
 		spriteRenderer.sprite = Sprite.Create(texture, new Rect(0,0,width,height), new Vector2(0.5f,0.5f), texelRatio);
 
 		pixels = texture.GetPixels();
+		lifeTimes = new float[pixels.Length];
 		for (int i = 0; i < pixels.Length; i++)
 		{
-			pixels[i] = Color.white;
+			pixels[i] = neutralColor;
+			lifeTimes[i] = 0f;
 		}
 		texture.SetPixels(pixels);
 		texture.Apply(false);
@@ -36,6 +40,12 @@ public class Field : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		for (int i = 0; i < pixels.Length; i++)
+		{
+			lifeTimes[i] -= Time.deltaTime;
+			pixels[i] = (lifeTimes[i] <= 0) ? neutralColor : pixels[i];
+		}
+
 		texture.SetPixels(pixels);
 		texture.Apply(false);
 	}
@@ -45,7 +55,7 @@ public class Field : MonoBehaviour
 		get { return new Vector2(width, height); }
 	}
 	
-	public void PaintDot(Color color, Vector2 position, float size)
+	public void PaintDot(Color color, Vector2 position, float size, float lifeTime)
 	{
 		float sqrRadius = size * size / 4;
 		Vector2 extents = Vector2.one * size;
@@ -66,6 +76,7 @@ public class Field : MonoBehaviour
 				{
 					int i = x + y*width;
 					pixels[i] = color;
+					lifeTimes[i] = lifeTime;
 				}
 			}
 		}
