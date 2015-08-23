@@ -47,8 +47,36 @@ public class Field : MonoBehaviour
 	{
 		for (int i = 0; i < pixels.Length; i++)
 		{
-			lifeTimes[i] -= Time.deltaTime;
-			pixels[i] = (lifeTimes[i] <= 0) ? neutralColor : pixels[i];
+			if (lifeTimes[i] <= 0)
+			{
+				pixels[i] = neutralColor;
+				actorTypes[i] = Actor.Type.NONE;
+			}
+			else
+			{
+				int x = i % width;
+				int y = (int)(i / width);
+
+				if (actorTypes[i] == Actor.Type.ROBOT)
+				{
+					for (int cX=Mathf.Max(0,x-CHECK_RADIUS); cX<=Mathf.Min(width-1,x+CHECK_RADIUS); cX++)
+					{
+						for (int cY=Mathf.Max(0,y-CHECK_RADIUS); cY<=Mathf.Min(height-1,y+CHECK_RADIUS); cY++)
+						{
+							int cI = cX + width * cY;
+							if (actorTypes[cI] == Actor.Type.MONSTER)
+							{
+								actorTypes[cI] = Actor.Type.ROBOT;
+								pixels[cI] = pixels[i];
+							}
+						}
+					}
+				}
+
+
+
+				lifeTimes[i] -= Time.deltaTime;
+			}
 		}
 
 		texture.SetPixels(pixels);
