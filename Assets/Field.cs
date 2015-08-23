@@ -3,10 +3,11 @@ using System.Collections;
 
 public class Field : MonoBehaviour
 {
+	public Stats stats;
 	public Color neutralColor = Color.white;
 	public int height = 480;
 
-	Texture2D texture;
+	private Texture2D texture;
 	private Color[] pixels;
 	private float[] lifeTimes;
 	private Actor.Type[] actorTypes;
@@ -108,6 +109,11 @@ public class Field : MonoBehaviour
 				if (dX*dX + dY*dY <= sqrRadius)
 				{
 					int i = x + y*width;
+
+					if (actorType == Actor.Type.MONSTER && actorTypes[i] == Actor.Type.PREY)
+					{
+						stats.AddScore(1);
+					}
 					pixels[i] = color;
 					lifeTimes[i] = lifeTime + Random.value * lifeVariation - lifeVariation/2;
 					actorTypes[i] = actorType;
