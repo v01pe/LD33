@@ -44,7 +44,7 @@ public class Field : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
 		for (int i = 0; i < pixels.Length; i++)
 		{
@@ -120,5 +120,35 @@ public class Field : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public bool CheckLifeSigns(Actor.Type type, Vector2 position, float size)
+	{
+		int i = (int)position.x + (int)position.y * width;
+		if (i >= 0 && i < actorTypes.Length && actorTypes[i] == type)
+		{
+			return true;
+		}
+
+		Vector2 extents = Vector2.one * size;
+		Rect rect = new Rect(position - extents/2, extents);
+		if (rect.xMin < 0) rect.xMin = 0;
+		if (rect.yMin < 0) rect.yMin = 0;
+		if (rect.xMax > width-1) rect.xMax = width-1;
+		if (rect.yMax > height-1) rect.yMax = height-1;
+		
+		for (int x=(int)rect.xMin; x<=rect.xMax; x++)
+		{
+			for (int y=(int)rect.yMin; y<=rect.yMax; y++)
+			{
+				i = x + y*width;
+				if (actorTypes[i] == type)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 }
