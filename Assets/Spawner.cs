@@ -15,6 +15,12 @@ public class Spawner : MonoBehaviour
 			GameObject robot = new GameObject();
 			robot.AddComponent<Robot>();
 		}
+
+		for (int i = 0; i < numPrey; i++)
+		{
+			GameObject robot = new GameObject();
+			robot.AddComponent<Prey>();
+		}
 	}
 	
 	// Update is called once per frame
