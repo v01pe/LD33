@@ -52,10 +52,10 @@ public class Field : MonoBehaviour
 
 	public Vector2 dimensions
 	{
-		get { return new Vector2(width, height); }
+		get { return new Vector2(height * Camera.main.aspect, height); }
 	}
 	
-	public void PaintDot(Color color, Vector2 position, float size, float lifeTime)
+	public void PaintDot(Color color, Vector2 position, float size, float lifeTime, float lifeVariation=0f)
 	{
 		float sqrRadius = size * size / 4;
 		Vector2 extents = Vector2.one * size;
@@ -76,7 +76,7 @@ public class Field : MonoBehaviour
 				{
 					int i = x + y*width;
 					pixels[i] = color;
-					lifeTimes[i] = lifeTime;
+					lifeTimes[i] = lifeTime + Random.value * lifeVariation - lifeVariation/2;
 				}
 			}
 		}

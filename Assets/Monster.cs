@@ -1,30 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Monster : MonoBehaviour
+public class Monster : Actor
 {
-	public Field field;
-	public Color color = Color.green;
-	public float lifeTime = 2f;
-	public float size = 10f;
 	public float speed = 10f;
-
-	private Vector2 position;
+	
 	// Use this for initialization
-	void Start ()
+	override public void Start ()
 	{
-		if (field == null)
-		{
-			enabled = false;
-		}
-		else
-		{
-			position = Vector2.one * 300;
-		}
+		base.Start();
+
+		position = field.dimensions/2;
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	override public void FixedUpdate ()
 	{
 		Vector2 velocity = Vector2.one * speed;
 
@@ -33,6 +23,6 @@ public class Monster : MonoBehaviour
 
 		position += velocity * Time.deltaTime;
 
-		field.PaintDot(color, position, size, lifeTime);
+		base.FixedUpdate();
 	}
 }
