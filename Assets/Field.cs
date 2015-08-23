@@ -9,7 +9,10 @@ public class Field : MonoBehaviour
 	Texture2D texture;
 	private Color[] pixels;
 	private float[] lifeTimes;
+	private Actor.Type[] actorTypes;
 	private int width;
+
+	private const int CHECK_RADIUS = 1;
 
 	// Use this for initialization
 	void Start ()
@@ -28,10 +31,12 @@ public class Field : MonoBehaviour
 
 		pixels = texture.GetPixels();
 		lifeTimes = new float[pixels.Length];
+		actorTypes = new Actor.Type[pixels.Length];
 		for (int i = 0; i < pixels.Length; i++)
 		{
 			pixels[i] = neutralColor;
 			lifeTimes[i] = 0f;
+			actorTypes[i] = Actor.Type.NONE;
 		}
 		texture.SetPixels(pixels);
 		texture.Apply(false);
@@ -55,7 +60,7 @@ public class Field : MonoBehaviour
 		get { return new Vector2(height * Camera.main.aspect, height); }
 	}
 	
-	public void PaintDot(Color color, Vector2 position, float size, float lifeTime, float lifeVariation=0f)
+	public void PaintDot(Actor.Type actorType, Color color, Vector2 position, float size, float lifeTime, float lifeVariation=0f)
 	{
 		float sqrRadius = size * size / 4;
 		Vector2 extents = Vector2.one * size;
@@ -77,6 +82,7 @@ public class Field : MonoBehaviour
 					int i = x + y*width;
 					pixels[i] = color;
 					lifeTimes[i] = lifeTime + Random.value * lifeVariation - lifeVariation/2;
+					actorTypes[i] = actorType;
 				}
 			}
 		}

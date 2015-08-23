@@ -25,4 +25,9 @@ public class Monster : Actor
 
 		base.FixedUpdate();
 	}
+
+	override public Type type
+	{
+		get { return Type.MONSTER; }
+	}
 }

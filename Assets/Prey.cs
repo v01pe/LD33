@@ -49,6 +49,11 @@ public class Prey : Actor
 		base.FixedUpdate();
 	}
 
+	override public Type type
+	{
+		get { return Type.PREY; }
+	}
+
 	private void Rotate(float degrees)
 	{
 		float radians = degrees * Mathf.Deg2Rad;

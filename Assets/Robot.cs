@@ -71,6 +71,11 @@ public class Robot : Actor
 		base.FixedUpdate();
 	}
 
+	override public Type type
+	{
+		get { return Type.ROBOT; }
+	}
+
 	private void CalcNewDirTime()
 	{
 		changeDirTime = Time.time + keepDirTime + Random.value * keepDirVariation - keepDirVariation/2;
