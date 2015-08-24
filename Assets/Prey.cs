@@ -29,6 +29,8 @@ public class Prey : Actor
 		position.y *= Random.value;
 		direction = Vector2.left;
 		Rotate(Random.value * 360);
+
+		field.stats.AddPrey();
 	}
 	
 	// Update is called once per frame
@@ -67,5 +69,11 @@ public class Prey : Actor
 	private void CalcNewDirTime()
 	{
 		changeDirTime = Time.time + keepDirTime + Random.value * keepDirVariation - keepDirVariation/2;
+	}
+
+	override protected void Die()
+	{
+		field.stats.AddPrey(-1);
+		base.Die();
 	}
 }

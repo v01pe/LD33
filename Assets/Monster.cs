@@ -36,4 +36,10 @@ public class Monster : Actor
 	{
 		get { return Type.MONSTER; }
 	}
+
+	override protected void Die()
+	{
+		field.stats.GameOver("You were hunted down by a robot!");
+		base.Die();
+	}
 }
