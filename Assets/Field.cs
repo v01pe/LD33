@@ -13,7 +13,7 @@ public class Field : MonoBehaviour
 	private Actor.Type[] actorTypes;
 	private int width;
 
-	private const int CHECK_RADIUS = 1;
+	private const int CHECK_RADIUS = 2;
 
 	// Use this for initialization
 	void Start ()

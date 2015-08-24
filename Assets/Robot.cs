@@ -21,8 +21,8 @@ public class Robot : Actor
 		color = Color.black;
 		speed = 35f;
 		lifeTime = 8f;
-		keepDirTime = 3.5f;
-		keepDirVariation = 0.5f;
+		keepDirTime = 2.5f;
+		keepDirVariation = 1.5f;
 
 		CalcNewDirTime();
 
